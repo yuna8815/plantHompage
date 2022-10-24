@@ -9,7 +9,11 @@
             <v-btn
               depressed
             >
-              주문대기
+              <!-- 
+                !TODO
+                버튼 width 혹은 icon position 수정 
+                -->
+              {{ state.name }}
             </v-btn>
             <v-tooltip
               right
@@ -25,18 +29,23 @@
                 </v-icon>
               </template>
 
-              <SteelPrinting v-if="ServieType == 'A'" />
-              <Steel v-if="ServieType == 'B'" />
-              <Printing v-if="ServieType == 'C'" />
+              <SteelPrinting v-if="$route.query.order == 'SP'" />
+              <Steel v-if="$route.query.order == 'S'" />
+              <Printing v-if="$route.query.order == 'P'" />
+              <!-- 
+                SP: '서지컬가이드 & 3D프린팅'
+                S: '서지컬가이드'
+                P: '3D프린팅'
+              -->
             </v-tooltip>
 
             <span>D-00</span>
           </div>
           <div class="content my-3 mb-md-4">
             <p class="my-0">
-              현재 주문확인 대기중입니다.
+              {{ state.title }}
             </p>
-            <span>주문확인 전까지 주문을 수정,취소 할 수 있습니다.</span>
+            <span>{{ state.desc }}</span>
           </div>
         </v-card-title>
 
@@ -55,7 +64,7 @@
             </div>
             <div>
               <span>서비스 종류</span>
-              <p>서지컬가이드 & 3D프린팅</p>
+              <p>{{ getOrderType($route.query.order) }}</p>
             </div>
             <div>
               <span>주문일시</span>
@@ -91,13 +100,44 @@ export default {
     Steel
   },
   data: () => ({
-    ServieType: 'B'
-    /*
-      A: 서지컬가이드 & 3D프린팅
-      B: 서지컬가이드
-      C: 3D프린팅
-    */
-  })
+    state: {name: '', title: '', desc: ''}
+  }),
+  mounted() {
+    this.getState(this.$route.query.state);
+  },
+  methods: {
+    getOrderType(order) {
+      switch(order) {
+      case 'SP': return '서지컬가이드 & 3D프린팅'
+      case 'S': return '서지컬가이드'
+      case 'P': return '3D프린팅'
+      }
+    },
+    getState(state) {
+      /*
+        R(Ready): '주문대기'
+        D(Design): '디자인중'
+        CR(ConfirmRequst): '확인요청'
+        M(Modify): '수정중'
+        C(Confirm): '확인완료'
+        P(Produce): '제작중'
+        DI(DeliveryIng): '배송중'
+        DC(DeliveryComplete): '배송완료'
+        F(Fin): '완료'
+      */
+      switch(state) {
+      case 'R': this.state = {name: '주문대기', title: '현재 주문확인 대기중입니다.', desc: '주문확인 전까지 주문을 수정,취소 할 수 있습니다.'}; break;
+      case 'D': this.state = {name: '디자인중', title: 'Plan.T를 이용한 임플란트 수술 디자인 중입니다.', desc: '1~2일내 디자인을 확인할 수 있습니다.'}; break;
+      case 'CR': this.state = {name: '확인요청', title: 'Plan.T를 이용한 수술계획이 완료 되었습니다.', desc: '수술계획 수정요청 또는 확정해주세요.'}; break;
+      case 'M': this.state = {name: '수정중', title: '임플란트 수술계획 수정중입니다.', desc: '1~2일내 디자인을 확인할 수 있습니다.'}; break;
+      case 'C': this.state = {name: '확인완료', title: '', desc: ''}; break;
+      case 'P': this.state = {name: '제작중', title: '', desc: ''}; break;
+      case 'DI': this.state = {name: '배송중', title: '', desc: ''}; break;
+      case 'DC': this.state = {name: '배송완료', title: '', desc: ''}; break;
+      case 'F': this.state = {name: '완료', title: '', desc: ''}; break;
+      }
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>

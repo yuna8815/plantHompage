@@ -1,6 +1,14 @@
 <template>
   <section class="detail">
-    <v-container class="mb-lg-15">
+    <v-container
+      v-if="$route.query.state == 'F'"
+      class="mb-lg-15">
+      <p>청구내용</p>
+    </v-container>
+
+    <v-container
+      v-if="isDelivery"
+      class="mb-lg-15">
       <p>배송정보</p>
 
       <v-card>
@@ -28,14 +36,20 @@
                   배송현황
                 </v-subheader>
                 <p class="del-pre d-flex justify-center align-center">
-                  배송중
-                  <v-btn class="ml-2">
-                    배송추적
-                  </v-btn>
+                  <template
+                    v-if="$route.query.state == 'DI'"
+                  >
+                    배송중
+                    <v-btn class="ml-2">
+                      배송추적
+                    </v-btn>
+                  </template>
+                  <template
+                    v-else
+                  >
+                    배송완료
+                  </template>
                 </p>
-                <!-- <p class="del-pre d-flex justify-center align-center">
-                  배송완료
-                </p> -->
               </div>
             </v-col>
           </v-row>
@@ -44,78 +58,105 @@
     </v-container>
 
     <v-container
-      v-if="state == '확인요청'"
-      class="mb-lg-15"
+      v-if="isSurgeryPlan"
+      class="plan mb-lg-15"
     >
-      <p>수술계획 확인하기</p>
+      <p>{{ isComfirm ? '수술계획 확인하기':'수술계획 확정' }}</p>
       <v-card>
         <v-form>
-          <v-row>
-            <v-col class="d-flex align-center py-8 py-md-10 justify-center justify-md-space-around">
-              <v-subheader>
-                0000.00.00 00:00
-              </v-subheader>
-              <div class="d-block max-width flex-grow-1 d-md-flex text-center justify-end">
-                <v-btn
-                  depressed
-                  disabled
-                  class="btn-3"
-                >
-                  Plan.T 수술계획 확인
-                </v-btn>
-                <v-btn
-                  depressed
-                  disabled
-                  class="btn-3 ml-lg-3 mr-0 mr-md-1 mr-lg-3 mt-2 mt-md-0"
-                >
-                  Plan.T 레포트 확인
-                </v-btn>
-              </div>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col class="d-flex align-center pt-3 pb-5 py-md-6 justify-center justify-md-space-around">
-              <div class="date max-width text-left text-lg-center">
+          <template
+            v-for="(plan, idx) of surgeryPlan"
+          >
+            <v-row
+              :key="idx"
+              :class="isComfirm ? '':'bg'"
+            >
+              <v-col class="d-flex align-center py-8 py-md-10 justify-center justify-md-space-around">
                 <v-subheader>
-                  0000.00.00 00:00
+                  {{ plan.date }}
                 </v-subheader>
-                <div>
-                  <v-btn
-                    depressed
-                    class="btn-2 mb-4"
+                <div class="d-block max-width flex-grow-1 d-md-flex text-center justify-end">
+                  <div class="px-4 px-md-0">
+                    <v-btn
+                      depressed
+                      :disabled="plan.modify != null"
+                      class="btn-3"
+                    >
+                      Plan.T 수술계획 확인
+                    </v-btn>
+                    <template v-if="!isComfirm">
+                      <p>파일 다운로드 <v-icon>mdi-tray-arrow-down</v-icon></p>
+                    </template>
+                  </div>
+                  <div class="px-4 px-md-0">
+                    <v-btn
+                      depressed
+                      :disabled="plan.modify != null"
+                      class="btn-3 ml-lg-3 mr-0 mr-md-1 mr-lg-3 mt-2 mt-md-0"
+                    >
+                      Plan.T 레포트 확인
+                    </v-btn>
+                    <template v-if="!isComfirm">
+                      <p>파일 다운로드 <v-icon>mdi-tray-arrow-down</v-icon></p>
+                    </template>
+                  </div>
+                </div>
+              </v-col>
+            </v-row>
+            <v-row
+              v-if="plan.modify"
+              :key="'modify'+idx"
+            >
+              <v-col class="d-flex align-center pt-3 pb-5 py-md-6 justify-center justify-md-space-around">
+                <div class="date max-width text-left text-lg-center">
+                  <v-subheader>
+                    0000.00.00 00:00
+                  </v-subheader>
+                  <template
+                    v-if="plan.isEditable"
                   >
-                    수정
-                  </v-btn>
-                  <p>담당자 확인 전까지<br>내용을 수정할 수 있습니다</p>
-                </div>
-                <!-- <div>
+                    <v-btn
+                      depressed
+                      class="btn-2 mb-4"
+                      @click="doEdit"
+                    >
+                      수정
+                    </v-btn>
+                    <p>담당자 확인 전까지<br>내용을 수정할 수 있습니다</p>
+                  </template>
+                  <template
+                    v-else
+                  >
                     <p class="ml-3 ml-md-0 px-md-3">
-                      담당자가 수정내용을 확인하였습니다.
+                      담당자가 수정내용을<br/>확인하였습니다.
                     </p>
-                  </div> -->
-              </div>
-              <div class="content flex-grow-1 mr-3">
-                <div class="d-block d-md-flex align-start">
-                  <v-subheader>
-                    수정내용
-                  </v-subheader>
-                  <v-textarea
-                    hide-details
-                    class="edit-textarea mt-0 pt-0"
-                  />
+                  </template>
                 </div>
-                <div class="d-block d-md-flex align-center mt-4">
-                  <v-subheader>
-                    파일첨부
-                  </v-subheader>
-                  <v-btn class="btn-1">
-                    파일확인
-                  </v-btn>
+                <div class="content flex-grow-1 mr-3">
+                  <div class="d-block d-md-flex align-start">
+                    <v-subheader>
+                      수정내용
+                    </v-subheader>
+                    <v-textarea
+                      v-model="plan.modify.desc"
+                      readonly
+                      hide-details
+                      class="edit-textarea mt-0 pt-0"
+                    />
+                  </div>
+                  <div class="d-block d-md-flex align-center mt-4">
+                    <v-subheader>
+                      파일첨부
+                    </v-subheader>
+                    <v-btn class="btn-1">
+                      파일확인
+                    </v-btn>
+                  </div>
                 </div>
-              </div>
-            </v-col>
-          </v-row>
-          <v-row class="bg">
+              </v-col>
+            </v-row>
+          </template>
+          <!-- <v-row class="bg">
             <v-col class="d-flex align-center py-6 justify-center justify-md-space-around">
               <v-subheader>
                 0000.00.00 00:00
@@ -128,7 +169,9 @@
                   >
                     Plan.T 수술계획 확인
                   </v-btn>
-                  <p>파일 다운로드 <v-icon>mdi-tray-arrow-down</v-icon></p>
+                  <template v-if="$route.query.state == 'C'">
+                    <p>파일 다운로드 <v-icon>mdi-tray-arrow-down</v-icon></p>
+                  </template>
                 </div>
                 <div class="px-4 px-md-0">
                   <v-btn
@@ -137,26 +180,33 @@
                   >
                     Plan.T 레포트 확인
                   </v-btn>
-                  <p>파일 다운로드 <v-icon>mdi-tray-arrow-down</v-icon></p>
+                  <template v-if="$route.query.state == 'C'">
+                    <p>파일 다운로드 <v-icon>mdi-tray-arrow-down</v-icon></p>
+                  </template>
                 </div>
               </div>
             </v-col>
-          </v-row>
+          </v-row> -->
         </v-form>
       </v-card>
 
-      <v-btn
-        class="btn-2"
-        depressed
+      <div
+        v-if="$route.query.state == 'CR'"
+        class="text-right pt-4"
       >
-        수정 요청하기
-      </v-btn>
-      <v-btn
-        depressed
-        class="btn-2"
-      >
-        수술계획 확정
-      </v-btn>
+        <v-btn
+          class="btn-2 mr-3"
+          depressed
+        >
+          수정 요청하기
+        </v-btn>
+        <v-btn
+          depressed
+          class="btn-2"
+        >
+          수술계획 확정
+        </v-btn>
+      </div>
     </v-container>
 
     <v-container>
@@ -194,7 +244,7 @@
               </v-subheader>
 
               <v-btn
-                v-if="route == '/orderdetail/detailview'"
+                v-if="$route.query.state == 'R'"
                 class="btn-1 tooltip"
               >
                 배송대기
@@ -255,7 +305,7 @@
         </v-form>
       </v-card>
       <div
-        v-if="route == '/orderdetail/detailview'"
+        v-if="$route.query.state == 'R'"
         class="float-right none"
       >
         <v-btn
@@ -281,23 +331,71 @@ export default {
     DeliveryTooltip
   },
   data: () => ({
-    route: '',
-    state: '확인요청',
+    isSurgeryPlan: false,
+    isDelivery: false,
+    surgeryPlan: [],
+    isComfirm: false,
   }),
-  watch: {
-    $route() {
-      console.log("watch", this.$route.fullPath)
-      this.route = this.$route.fullPath.replace('/designservice/history', '')
-    }
-  },
   mounted() {
-    this.route = this.$route.fullPath.replace('/designservice/history', '')
-    // console.log(_route == '/orderdetail/orderbill')
-    console.log("mounted()", this.$route.fullPath)
+    console.log('id =', this.$route.query.id, '서비스 종류 =', this.$route.query.order, '상태 =', this.$route.query.state)
+    this.isComfirm = ['CR','M'].includes(this.$route.query.state)
+    this.getState(this.$route.query.state);
+    
+    const _surgeryPlan = [
+      {
+        date: '0000.00.00 00:00',
+        isEditable: false,
+        modify: {desc: '요청사항123', file: ''}
+      },
+      {
+        date: '0000.00.00 00:00',
+        isEditable: true,
+        modify: {desc: '요청사항123', file: ''}
+      },
+      {
+        date: '0000.00.00 00:00',
+        modify: null
+      }
+    ]
+    if(['CR','M'].includes(this.$route.query.state)) _surgeryPlan.forEach(el => this.surgeryPlan.push(el))
+    else  this.surgeryPlan.push(_surgeryPlan[_surgeryPlan.length-1])
+  },
+  methods: {
+    getState(state) {
+      switch(state) {
+      case 'CR':
+      case 'M':
+      case 'C':
+      case 'P':
+        this.isSurgeryPlan = true;
+        this.isDelivery = false;
+        break;
+      case 'DI':
+      case 'DC':
+      case 'F':
+        this.isSurgeryPlan = true;
+        this.isDelivery = true;
+        break;
+      default:
+        this.isSurgeryPlan = false;
+        this.isDelivery = false;
+        break;
+      }
+    },
+    doEdit() {
+      // 수정요청하기 입력 모달 오픈
+    }
   }
 }
 </script>
 <style lang="scss" scoped>
+.plan .v-form .row:last-child:not(:first-child) {
+  background: #F8F8F8;
+}
+.plan .row + .row {
+  border-top: 1px solid #ECECEC;
+}
+
 .detail {
   p {
     font-weight: 700;

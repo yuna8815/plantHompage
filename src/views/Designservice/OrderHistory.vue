@@ -10,12 +10,12 @@
           class="px-0 px-md-2 py-1 py-md-3"
         >
           <v-card
-            :to="item.href"
             class="pa-3 py-md-4"
+            @click="goPage(item)"
           >
             <div class="d-flex">
               <v-btn class="history">
-                {{ item.state }}
+                {{ getStateType(item.state) }}
               </v-btn>
               <v-spacer />
               <span class="d-day mr-1">{{ item.d_day }}</span>
@@ -29,7 +29,7 @@
             </div>
             <div class="d-flex d-md-block d-lg-flex mt-2 mt-lg-0 order-data px-1">
               <p class="mr-1">
-                {{ item.order }} <span class="none">/</span>
+                {{ getOrderType(item.order) }} <span class="none">/</span>
               </p>
               <p>{{ item.respon }}</p>
             </div>
@@ -52,27 +52,69 @@ export default {
   data: () => ({
     chip: 0,
     items: [
-      { id: '1', name: '환자이름', birth: '0000.00.00', order: '서지컬가이드 & 3D프린팅', respon: '주문담당자' , orderDate: '0000.00.00. 00:00', d_day: 'D-00', surgery: '00.00.00', state: '주문대기', href:'/designservice/history/orderdetail/detailview' },
-      { id: '2', name: '환자이름', birth: '0000.00.00', order: '서지컬가이드 & 3D프린팅', respon: '주문담당자' , orderDate: '0000.00.00. 00:00', d_day: 'D-00', surgery: '00.00.00', state: '배송중', href:'/designservice/history/orderdetail/orderdelivery' },
-      { id: '3', name: '환자이름', birth: '0000.00.00', order: '서지컬가이드', respon: '주문담당자' , orderDate: '0000.00.00. 00:00', d_day: 'D-00', surgery: '00.00.00', state: '수정중', href:'/designservice/history/orderdetail/orderedit' },
-      { id: '4', name: '환자이름', birth: '0000.00.00', order: '서지컬가이드', respon: '주문담당자' , orderDate: '0000.00.00. 00:00', d_day: 'D-00', surgery: '00.00.00', state: '디자인중', href:'/designservice/history/orderdetail/detaildesign' },
-      { id: '5', name: '환자이름', birth: '0000.00.00', order: '3D프린팅', respon: '주문담당자' , orderDate: '0000.00.00. 00:00', d_day: 'D-00', surgery: '00.00.00', state: '확인요청', href:'/designservice/history/orderdetail/orderconfirm' },
-      { id: '6', name: '환자이름', birth: '0000.00.00', order: '3D프린팅', respon: '주문담당자' , orderDate: '0000.00.00. 00:00', d_day: 'D-00', surgery: '00.00.00', state: '완료', href:'/designservice/history/orderdetail/detailview' },
-      { id: '7', name: '환자이름', birth: '0000.00.00', order: '서지컬가이드 & 3D프린팅', respon: '주문담당자' , orderDate: '0000.00.00. 00:00', d_day: 'D-00', surgery: '00.00.00', state: '주문대기', href:'/designservice/history/orderdetail/detailview' },
-      { id: '8', name: '환자이름', birth: '0000.00.00', order: '서지컬가이드 & 3D프린팅', respon: '주문담당자' , orderDate: '0000.00.00. 00:00', d_day: 'D-00', surgery: '00.00.00', state: '배송중', href:'/designservice/history/orderdetail/orderdelivery' },
-      { id: '9', name: '환자이름', birth: '0000.00.00', order: '서지컬가이드', respon: '주문담당자' , orderDate: '0000.00.00. 00:00', d_day: 'D-00', surgery: '00.00.00', state: '수정중', href:'/designservice/history/orderdetail/detailview' },
-      { id: '10', name: '환자이름', birth: '0000.00.00', order: '서지컬가이드', respon: '주문담당자' , orderDate: '0000.00.00. 00:00', d_day: 'D-00', surgery: '00.00.00', state: '디자인중', href:'/designservice/history/orderdetail/detaildesign' },
-      { id: '11', name: '환자이름', birth: '0000.00.00', order: '3D프린팅', respon: '주문담당자' , orderDate: '0000.00.00. 00:00', d_day: 'D-00', surgery: '00.00.00', state: '확인요청', href:'/designservice/history/orderdetail/orderconfirm' },
-      { id: '12', name: '환자이름', birth: '0000.00.00', order: '3D프린팅', respon: '주문담당자' , orderDate: '0000.00.00. 00:00', d_day: 'D-00', surgery: '00.00.00', state: '완료', href:'/designservice/history/orderdetail/detailview' },
-      { id: '13', name: '환자이름', birth: '0000.00.00', order: '서지컬가이드 & 3D프린팅', respon: '주문담당자' , orderDate: '0000.00.00. 00:00', d_day: 'D-00', surgery: '00.00.00', state: '주문대기', href:'/designservice/history/orderdetail/detailview' },
-      { id: '14', name: '환자이름', birth: '0000.00.00', order: '서지컬가이드 & 3D프린팅', respon: '주문담당자' , orderDate: '0000.00.00. 00:00', d_day: 'D-00', surgery: '00.00.00', state: '배송중', href:'/designservice/history/orderdetail/orderdelivery' },
-      { id: '15', name: '환자이름', birth: '0000.00.00', order: '서지컬가이드', respon: '주문담당자' , orderDate: '0000.00.00. 00:00', d_day: 'D-00', surgery: '00.00.00', state: '수정중', href:'/designservice/history/orderdetail/detailview' },
-      { id: '16', name: '환자이름', birth: '0000.00.00', order: '서지컬가이드', respon: '주문담당자' , orderDate: '0000.00.00. 00:00', d_day: 'D-00', surgery: '00.00.00', state: '디자인중', href:'/designservice/history/orderdetail/detaildesign' },
-      { id: '17', name: '환자이름', birth: '0000.00.00', order: '3D프린팅', respon: '주문담당자' , orderDate: '0000.00.00. 00:00', d_day: 'D-00', surgery: '00.00.00', state: '확인요청', href:'/designservice/history/orderdetail/orderconfirm' },
-      { id: '18', name: '환자이름', birth: '0000.00.00', order: '3D프린팅', respon: '주문담당자' , orderDate: '0000.00.00. 00:00', d_day: 'D-00', surgery: '00.00.00', state: '완료', href:'/designservice/history/orderdetail/detailview' }
+      /*
+      order:
+      SP: '서지컬가이드 & 3D프린팅'
+      S: '서지컬가이드'
+      P: '3D프린팅'
+
+      state: 
+      R(Ready): '주문대기'
+      D(Design): '디자인중'
+      CR(ConfirmRequst): '확인요청'
+      M(Modify): '수정중'
+      C(Confirm): '확인완료'
+      P(Produce): '제작중'
+      DI(DeliveryIng): '배송중'
+      DC(DeliveryComplete): '배송완료'
+      F(Fin): '완료'
+      */
+      { id: '1', name: '환자이름', birth: '0000.00.00', order: 'SP', respon: '주문담당자' , orderDate: '0000.00.00. 00:00', d_day: 'D-00', surgery: '00.00.00', state: 'R' },
+      { id: '2', name: '환자이름', birth: '0000.00.00', order: 'SP', respon: '주문담당자' , orderDate: '0000.00.00. 00:00', d_day: 'D-00', surgery: '00.00.00', state: 'D' },
+      { id: '3', name: '환자이름', birth: '0000.00.00', order: 'S', respon: '주문담당자' , orderDate: '0000.00.00. 00:00', d_day: 'D-00', surgery: '00.00.00', state: 'CR' },
+      { id: '4', name: '환자이름', birth: '0000.00.00', order: 'S', respon: '주문담당자' , orderDate: '0000.00.00. 00:00', d_day: 'D-00', surgery: '00.00.00', state: 'M' },
+      { id: '5', name: '환자이름', birth: '0000.00.00', order: 'P', respon: '주문담당자' , orderDate: '0000.00.00. 00:00', d_day: 'D-00', surgery: '00.00.00', state: 'C' },
+      { id: '6', name: '환자이름', birth: '0000.00.00', order: 'P', respon: '주문담당자' , orderDate: '0000.00.00. 00:00', d_day: 'D-00', surgery: '00.00.00', state: 'P' },
+      { id: '7', name: '환자이름', birth: '0000.00.00', order: 'SP', respon: '주문담당자' , orderDate: '0000.00.00. 00:00', d_day: 'D-00', surgery: '00.00.00', state: 'DI' },
+      { id: '8', name: '환자이름', birth: '0000.00.00', order: 'SP', respon: '주문담당자' , orderDate: '0000.00.00. 00:00', d_day: 'D-00', surgery: '00.00.00', state: 'DC' },
+      { id: '9', name: '환자이름', birth: '0000.00.00', order: 'S', respon: '주문담당자' , orderDate: '0000.00.00. 00:00', d_day: 'D-00', surgery: '00.00.00', state: 'F' },
+      { id: '10', name: '환자이름', birth: '0000.00.00', order: 'S', respon: '주문담당자' , orderDate: '0000.00.00. 00:00', d_day: 'D-00', surgery: '00.00.00', state: 'D' },
+      { id: '11', name: '환자이름', birth: '0000.00.00', order: 'P', respon: '주문담당자' , orderDate: '0000.00.00. 00:00', d_day: 'D-00', surgery: '00.00.00', state: 'CR' },
+      { id: '12', name: '환자이름', birth: '0000.00.00', order: 'P', respon: '주문담당자' , orderDate: '0000.00.00. 00:00', d_day: 'D-00', surgery: '00.00.00', state: 'F' },
+      { id: '13', name: '환자이름', birth: '0000.00.00', order: 'SP', respon: '주문담당자' , orderDate: '0000.00.00. 00:00', d_day: 'D-00', surgery: '00.00.00', state: 'R' },
+      { id: '14', name: '환자이름', birth: '0000.00.00', order: 'SP', respon: '주문담당자' , orderDate: '0000.00.00. 00:00', d_day: 'D-00', surgery: '00.00.00', state: 'DI' },
+      { id: '15', name: '환자이름', birth: '0000.00.00', order: 'S', respon: '주문담당자' , orderDate: '0000.00.00. 00:00', d_day: 'D-00', surgery: '00.00.00', state: 'M' },
+      { id: '16', name: '환자이름', birth: '0000.00.00', order: 'S', respon: '주문담당자' , orderDate: '0000.00.00. 00:00', d_day: 'D-00', surgery: '00.00.00', state: 'D' },
+      { id: '17', name: '환자이름', birth: '0000.00.00', order: 'P', respon: '주문담당자' , orderDate: '0000.00.00. 00:00', d_day: 'D-00', surgery: '00.00.00', state: 'CR' },
+      { id: '18', name: '환자이름', birth: '0000.00.00', order: 'P', respon: '주문담당자' , orderDate: '0000.00.00. 00:00', d_day: 'D-00', surgery: '00.00.00', state: 'F' }
     ],
     page: 1
-  })
+  }),
+  methods: {
+    getOrderType(order) {
+      switch(order) {
+      case 'SP': return '서지컬가이드 & 3D프린팅'
+      case 'S': return '서지컬가이드'
+      case 'P': return '3D프린팅'
+      }
+    },
+    getStateType(state) {
+      switch(state) {
+      case 'R': return '주문대기'
+      case 'D': return '디자인중'
+      case 'CR': return '확인요청'
+      case 'M': return '수정중'
+      case 'C': return '확인완료'
+      case 'P': return '제작중'
+      case 'DI': return '배송중'
+      case 'DC': return '배송완료'
+      case 'F': return '완료'
+      }
+    },
+    goPage(item) {
+      this.$router.push({path: '/designservice/history/orderdetail/detailview', query: { id: item.id, order: item.order, state: item.state }})
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
