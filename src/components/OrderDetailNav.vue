@@ -19,6 +19,7 @@
               right
               color="transparent"
             >
+            <!-- transform: translateY(calc(50% - 30px)) -->
               <template #activator="{ on, attrs }">
                 <v-icon
                   class="alert"
