@@ -1,0 +1,165 @@
+//sub-content
+.sub-content {
+  margin: 0 auto;
+  .v-btn {
+    color: var(--v-primary-base) !important;
+    background: #FFFFFF !important;
+    border: 1px solid var(--v-primary-base);
+    border-radius: 23px;
+    box-shadow: none;
+    text-transform: none;
+    &:hover {
+      color: #159E60 !important;
+      border-color: #159E60;
+    }
+    &::before {
+      opacity: 0 !important;
+    }
+    &.history:hover {
+      color: var(--v-primary-base) !important;
+      border-color: var(--v-primary-base);
+    }
+  }
+}
+
+
+//order-detail
+.detail {
+  width: 100%;
+  .v-subheader {
+    min-width: 110px;
+    padding: 0 12px;
+  }
+  .btn-1 {
+    width: 280px;
+    height: 42px !important;
+    background: #FFFFFF !important;
+    border: 1px solid #C2C2C2;
+    box-shadow: none;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: -0.2px;
+
+  }
+  .btn-2 {
+    width: 95px;
+    height: 42px !important;
+    background: var(--v-primary-base) !important;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 16px;
+  }
+  .btn-3 {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 16px;
+    letter-spacing: -0.2px;
+    border: 1px solid #FFFFFF;
+    background: linear-gradient(93.54deg, #72E09E 2.72%, #008ECF 98.31%) !important;
+    color: #FFFFFF !important;
+    &:hover {
+      border: 1px solid #FFFFFF;
+      color: #FFFFFF !important;
+    }
+  }
+  .text-field-1 {
+    width: 280px;
+    padding-top: 0;
+    margin-top: 0;
+  }
+  .v-input input {
+    padding-left: 10px;
+  }
+  textarea {
+    padding: 0 10px !important;
+    max-height: 120px;
+  }
+  .edit-textarea {
+    .v-input__slot {
+      height: 134px !important;
+      background: #FFFFFF !important;
+      textarea {
+        height: 126px !important;
+      }
+    }
+  }
+
+  @media screen and (max-width: 1200px) {
+    .v-container {
+      max-width: 409px;
+    }
+    .text-field-1,
+    .btn-1,
+    .top-1 .v-input__slot,
+    textarea {
+      width: 318px !important;
+    }
+    .content {
+      textarea {
+        width: 220px !important;
+      }
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .container {
+      width: 320px;
+      padding: 24px 0 60px;
+    }
+    .sub-content {
+      p {
+        width: 320px;
+        margin: 10px auto;
+      }
+      .v-card {
+        .col {
+          padding-left: 0 !important;
+        }
+      }
+    }
+    .v-card {
+      width: 320px;
+      margin: auto;
+      padding-bottom: 120px !important;
+      .text-field-1,
+      .btn-1,
+      .top-1 .v-input__slot,
+      .v-textarea,
+      textarea {
+        width: 220px !important;
+        max-width: 220px;
+      }
+      .v-textarea {
+        .v-input__slot {
+          height: 86px !important;
+          textarea {
+            max-height: 76px !important;
+          }
+        }
+      }
+      .btn-1 {
+        height: 28px !important;
+        font-size: 13px;
+      }
+      .v-image {
+        width: 220px !important;
+        max-width: 220px !important;
+      }
+    }
+    .v-input input {
+      padding-left: 5px;
+      font-size: 13px !important;
+    }
+    .btn-2 {
+      height: 34px !important;
+      width: 88px;
+      font-size: 14px;
+    }
+  }
+}
+.theme--light.v-btn.v-btn--disabled.v-btn--has-bg {
+  background: #C2C2C2 !important;
+  color: #FFFFFF !important;
+}

@@ -1,0 +1,7 @@
+.theme--light.v-expansion-panels .v-expansion-panel:not(:first-child)::after {
+  border-color: transparent !important;
+}
+.mdi-chevron-down::before,
+.mdi-chevron-down::after {
+  display: none;
+}

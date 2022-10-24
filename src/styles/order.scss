@@ -1,0 +1,54 @@
+.order {
+  .v-card {
+    width: 280px;
+    box-shadow: none;
+    background: #F8F8F8;
+    border-radius: 0 0 10px 10px;
+    &__title {
+      background: linear-gradient(93.54deg, #72E09E 2.72%, #008ECF 98.31%);
+      border-radius: 10px 10px 0 0 !important;
+    }
+    .v-chip {
+      width: 244px;
+      height: 42px;
+      border-radius: 5px;
+      background: #FFFFFF;
+      color: #979797;
+      font-size: 16px;
+      line-height: 32px;
+      letter-spacing: -0.5px;
+      border: 1px solid #C2C2C2;
+      &--active {
+        background: linear-gradient(93.54deg, #72E09E 2.72%, #008ECF 98.31%);
+        color: #FFFFFF !important;
+        border: 1px solid #F8F8F8;
+        box-shadow: none;
+      }
+      &::before {
+        display: none !important;
+      }
+    }
+    .v-select {
+      width: 244px !important;
+    }
+  }
+  .link-to {
+    background: #ECECEC;
+    border-radius: 5px;
+    height: 42px;
+    line-height: 42px;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+    color: #666666;
+    width: 280px;
+    margin: auto;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .v-input__slot {
+    height: 28px !important;
+  }
+}

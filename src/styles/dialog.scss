@@ -1,0 +1,441 @@
+//Surgical Guide & 3D Printing dialog
+.v-dialog {
+  .v-card {
+    position: relative;
+    border-radius: 10px;
+    &__title {
+      font-size: 18px;
+      line-height: 25px;
+      letter-spacing: -0.5px;
+      font-weight: 500;
+      padding: 0;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .v-btn {
+      width: 149px;
+      font-size: 16px;
+      font-weight: 400;
+      letter-spacing: -0.2px;
+      color: #FFFFFF;
+      padding: 0;
+      background: linear-gradient(93.54deg, #72E09E 2.72%, #008ECF 98.31%);
+      border-radius: 5px;
+      box-shadow: none;
+      text-transform: none;
+      &.pre {
+        background: #C2C2C2;
+      }
+      &::before {
+      opacity: 0 !important;
+      }
+    }
+    .v-image.btn_close {
+      position: absolute;
+      right: -15px;
+      top: -15px;
+      cursor: pointer;
+    }
+    .v-icon {
+      color: var(--v-primary-base) !important;
+    }
+    textarea {
+      color: #666666 !important;
+      padding: 10px !important;
+      font-size: 16px;
+      line-height: 22px;
+      letter-spacing: -0.2px;
+      overflow-y: scroll;
+      height: 174px;
+      max-height: 174px;
+      margin: auto;
+    }
+    .detail-textarea {
+      max-width: 590px;
+      .v-input__slot {
+        height: 126px !important;
+        textarea {
+          max-height: 118px !important;
+        }
+      }
+    }
+    .page2 textarea {
+      height: 120px !important;
+      max-height: 120px !important;
+    }
+    .center-wrap {
+      width: 600px;
+      margin: 0 auto !important;
+      p {
+        font-size: 18px;
+        line-height: 29px;
+        letter-spacing: -0.5px;
+        color: #666666;
+        margin: 0;
+      }
+    }
+    .v-input {
+      margin-top: 0;
+    }
+    .v-subheader {
+      word-break: keep-all;
+      padding: 0;
+      min-width: 30px;
+      margin-right: 20px;
+      &.page2-sub {
+        min-width: 75px;
+      }
+    }
+    .field-wrap {
+      width: 60%;
+      border: 1px solid #C2C2C2;
+      border-radius: 5px;
+      position: relative;
+      .v-btn {
+        border-radius: 0 5px 5px 0;
+      }
+      &::after {
+        content: 'DICOM 압축파일 업로드 가능';
+        position: absolute;
+        top: 50px;
+        left: 3px;
+        color: #979797;
+      }
+      &.detail-upload{
+        &::after{
+          display: none;
+        }
+        .v-input {
+          &__slot {
+            border: 1px solid transparent;
+          }
+        }
+      }
+      &:nth-child(3)::after {
+        content: 'STL, PLY, OBJ파일';
+      }
+    }
+    & .printing-form {
+      .field-wrap {
+        width: 280px;
+      }
+      .col:last-child {
+        .field-wrap::after {
+          content: '';
+        }
+      }
+      // .etc {
+      //   height: 126px;
+      //   max-height: 126px !important;
+      // }
+    }
+    .width100 {
+      width: 100% !important;
+    }
+  }
+
+  .v-stepper {
+    > div:first-child {
+      font-weight: 600;
+      font-size: 24px;
+      line-height: 24px;
+      letter-spacing: -0.5px;
+    }
+    &__step__step {
+      width: 20px !important;
+      min-width: 20px !important;
+      height: 20px !important;
+    }
+    &__content {
+      padding: 0 40px 40px 40px !important;
+    }
+    &__header {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 14px;
+      letter-spacing: -0.3px;
+      box-shadow: none !important;
+      > .v-stepper__step--inactive,
+      .v-stepper__step--complete {
+        padding-right: 5px;
+      }
+      .v-stepper__step {
+        &--active,
+        &--inactive,
+        &--complete {
+          span {
+            background: linear-gradient(93.54deg, #72E09E 2.72%, #008ECF 98.31%) !important;
+          }
+        }
+      }
+    }
+    .v-card {
+      box-shadow: none;
+    }
+    .row{
+      .v-subheader {
+        color: #000000;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 18px;
+        letter-spacing: -0.5px;
+      }
+      .field-wrap {
+        .v-input__slot {
+          border: none;
+          
+        }
+      }
+      .v-input {
+        padding: 0;
+        &__slot{
+          margin: 0;
+          &::before {
+          display: none !important;
+          }
+        }
+      }
+      .alert {
+        font-size: 15px;
+      }
+    }
+    .v-btn {
+      width: 108px !important;
+      height: 42px !important;
+      &.list-btn {
+        width: 194px !important;
+      }
+      &.file {
+        background: var(--v-primary-base);
+        position: relative;
+        .v-input__prepend-outer {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+    p {
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 31px;
+      letter-spacing: -0.5px;
+    }
+  }
+  .v-form,
+  .dialog-wrap {
+    padding: 20px 0;
+    border-radius: 0 !important;
+    border-bottom: 1px solid #ECECEC;
+    border-top: 1px solid #ECECEC;
+    .v-card {
+      box-shadow: none;
+    }
+  }
+}
+
+.v-menu__content {
+  border: 1px solid var(--v-primary-base);
+  border-radius: 5px !important;
+}
+.v-sheet.v-card:not(.v-sheet--outlined) {
+  box-shadow: none;
+}
+.v-tooltip__content.menuable__content__active {
+  opacity: 1 !important;
+}
+.theme--light.v-stepper .v-stepper__step:not(.v-stepper__step--active):not(.v-stepper__step--complete):not(.v-stepper__step--error) .v-stepper__step__step {
+  background: #C2C2C2 !important;
+}
+
+@media screen and (min-width: 769px) and (max-width: 1200px) {
+  .v-dialog {
+    width: 620px !important;
+    .v-stepper {
+      &__step__step {
+        width: 14px !important;
+        min-width: 14px !important;
+        height: 14px !important;
+      }
+      .etc {
+        &, * {
+          height: 88px !important;
+        }
+        .v-text-field__slot{
+          textarea {
+            height: 80px !important;
+            max-height: 80px !important;
+          }
+        }
+      }
+      .center-wrap {
+        width: 400px;
+        margin: 0 auto !important;
+          p{
+            font-size: 16px !important;
+          }
+        }
+      > div:first-child {
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 20px;
+      }
+      .col {
+      padding-top: 0;
+      }
+      .dialog-wrap {
+        > div:first-child {
+          p {
+            font-size: 18px;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+    .v-subheader {
+      min-width: 80px !important;
+    }
+    .field-wrap {
+      width: 100% !important;
+    }
+    .width100 {
+      > div:first-child {
+        span {
+          display: block;
+          width: 110px;
+        }
+      }
+    }
+  }
+  .v-stepper__step.v-stepper__step {
+    &--inactive,
+    &--active,
+    &--complete {
+      margin-left: 8px;
+    }
+  }
+  .v-stepper:not(.v-stepper--vertical) .v-stepper__label {
+    display: block !important;
+    font-size: 10px;
+    margin-left: 5px;
+  }
+  .dialog-wrap {
+    p {
+      font-size: 18px !important;
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .v-dialog {
+    width: 310px !important;
+    .v-card {
+      textarea {
+        max-height: 80px !important;
+      }
+      .page2 textarea {
+        height: 80px !important;
+        max-height: 80px !important;
+      }
+      .detail-textarea {
+        .v-input__slot {
+          height: 160px !important;
+          textarea {
+            max-height: 154px !important;
+            font-size: 13px;
+          }
+        }
+      }
+    }
+    
+    .v-select__selections {
+      input {
+        font-size: 13px !important;
+      }
+    }
+    .v-image.btn_close {
+      width: 30px;
+      height: 30px !important;
+      right: -10px !important;
+      top: -10px !important;
+    }
+    .v-stepper {
+      .v-form {
+        padding-bottom: 80px !important;
+        &.page2,
+        &.printing-form,
+        &.surgical-form {
+          padding-bottom: 20px !important;
+        }
+        .v-subheader {
+          min-width: 80px !important;
+        }
+      }
+      &__step__step {
+        width: 14px !important;
+        min-width: 14px !important;
+        height: 14px !important;
+      }
+      &__content {
+        padding: 0 20px 30px 20px !important;
+      }
+      .v-stepper__step {
+        padding: 0 !important;
+        &--active,
+        &--inactive,
+        &--complete {
+          span {
+            background: #FFFFFF !important;
+            color: #979797;
+          }
+        }
+        &--active {
+          span {
+            color: var(--v-primary-base) !important;
+          }
+        }
+      }
+    }
+    .v-subheader {
+      font-size: 15px !important;
+      line-height: 15px !important;
+    }
+    .v-input__slot,
+    .field-wrap,
+    .field-wrap .v-btn {
+      height: 28px !important;
+    }
+    .printing-form {
+      .etc.field-wrap {
+        margin-top: 5px !important;
+        height: 88px !important;
+      }
+    }
+    .etc .v-input__slot {
+      height: 80px !important;
+    }
+    .field-wrap {
+      .v-btn {
+        width: 57px !important;
+        font-size: 12px;
+      }
+    }
+  }
+  .v-stepper__step {
+    &--inactive,
+    &--active,
+    &--complete {
+      margin-left: 8px;
+    }
+  }
+
+  .dialog-wrap {
+    p {
+      font-size: 14px !important;
+      line-height: 20px;
+    }
+  }
+  
+  .theme--light.v-stepper .v-stepper__step:not(.v-stepper__step--active):not(.v-stepper__step--complete):not(.v-stepper__step--error) .v-stepper__step__step {
+    background: #FFFFFF !important;
+  }
+}
